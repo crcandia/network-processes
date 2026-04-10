@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E17RE5DCQK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E17RE5DCQK');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal</title>
+<meta name="description" content="Recurso interactivo de la Clase 6 del curso Redes y Sistemas Complejos sobre procesos en redes: modelos SIS y SIR, umbral epidémico, intervención óptima y redes temporales.">
+<meta name="keywords" content="procesos en redes, network processes, SIS, SIR, umbral epidémico, intervención en redes, redes temporales, epidemias en redes, difusión en redes, redes y sistemas complejos">
+<meta name="author" content="Cristian Candia, Ph.D.">
+<meta name="publisher" content="CRiSS Lab">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="theme-color" content="#B04A2F">
+<meta name="application-name" content="Procesos en Redes">
+<meta name="apple-mobile-web-app-title" content="Procesos en Redes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<link rel="canonical" href="./">
+<link rel="icon" href="./assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="./assets/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="shortcut icon" href="./assets/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+<link rel="manifest" href="./site.webmanifest">
+<meta property="og:locale" content="es_CL">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="CRiSS Lab · Redes y Sistemas Complejos">
+<meta property="og:title" content="Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal">
+<meta property="og:description" content="Clase interactiva sobre procesos en redes con simulaciones de difusión, umbral epidémico, estrategias de intervención y restricciones temporales.">
+<meta property="og:image" content="./assets/share-social.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vista previa del recurso Procesos en Redes de CRiSS Lab">
+<meta property="article:author" content="https://www.crcandia.com/">
+<meta property="article:publisher" content="https://criss-lab.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal">
+<meta name="twitter:description" content="Clase interactiva sobre procesos en redes con modelos SIS/SIR, umbral epidémico, intervención y redes temporales.">
+<meta name="twitter:image" content="./assets/share-social.jpg">
+<meta name="twitter:image:alt" content="Vista previa del recurso Procesos en Redes de CRiSS Lab">
+<link rel="author" href="https://www.crcandia.com/">
+<link rel="me" href="https://criss-lab.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Procesos en Redes",
+  "headline": "Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal",
+  "description": "Recurso interactivo de la Clase 6 del curso Redes y Sistemas Complejos sobre procesos en redes, difusión y epidemiología en redes.",
+  "inLanguage": "es-CL",
+  "learningResourceType": [
+    "Interactive educational article",
+    "Simulation"
+  ],
+  "keywords": [
+    "procesos en redes",
+    "SIS",
+    "SIR",
+    "umbral epidémico",
+    "redes temporales",
+    "intervención en redes"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Cristian Candia, Ph.D.",
+    "url": "https://www.crcandia.com/",
+    "sameAs": [
+      "https://www.crcandia.com/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CRiSS Lab",
+    "url": "https://criss-lab.com/",
+    "sameAs": [
+      "https://criss-lab.com/"
+    ]
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "CRiSS Lab",
+    "url": "https://criss-lab.com/"
+  },
+  "isAccessibleForFree": true,
+  "image": "./assets/share-social.jpg",
+  "teaches": [
+    "Modelos SIS y SIR",
+    "Umbral epidémico",
+    "Intervención sobre redes",
+    "Propagación en redes temporales"
+  ],
+  "about": [
+    "Redes complejas",
+    "Difusión en redes",
+    "Epidemiología en redes"
+  ]
+}
+</script>
+<style>
+:root {
+  --bg: #FAFAF7;
+  --bg-card: #FFFFFF;
+  --bg-code: #F4F1EC;
+  --text: #1A1A1A;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --accent: #B04A2F;
+  --accent-light: #E8D5CC;
+  --accent2: #2F6B5E;
+  --accent2-light: #D0E5DF;
+  --border: #E0DDD6;
+  --S-color: #4A90D9;
+  --I-color: #D94A4A;
+  --R-color: #6BBF6B;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 8px;
+  --font-body: 'DM Sans', sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  padding-bottom: 60px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #FAF8F5 0%, #F0EDE6 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 40px;
+  text-align: center;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.hero .subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-meta {
+  margin: 14px auto 0;
+  max-width: 720px;
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+}
+.hero-meta a {
+  color: var(--accent2);
+  font-weight: 600;
+  text-decoration: none;
+}
+.hero-meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+/* Navigation tabs */
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
+  margin: 32px auto;
+  max-width: 900px;
+  overflow-x: auto;
+}
+.nav-tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  min-width: 0;
+}
+.nav-tab.active {
+  background: var(--bg-card);
+  color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.nav-tab:hover:not(.active) { color: var(--text); }
+
+/* Section */
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  color: var(--text);
+}
+
+p { margin-bottom: 12px; }
+
+.math {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-code);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+.formula-block {
+  background: var(--bg-code);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  text-align: center;
+  color: var(--text);
+}
+
+.caveat {
+  background: #FFF8F0;
+  border: 1px solid #F0D9B5;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.9rem;
+  color: #7A5C2E;
+}
+.caveat::before { content: "⚠ Simplificación pedagógica: "; font-weight: 600; }
+
+.note-rigorous {
+  background: #F0F7F4;
+  border: 1px solid #B5D8C7;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.9rem;
+  color: #2B5E4A;
+}
+.note-rigorous::before { content: "✓ Resultado riguroso: "; font-weight: 600; }
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0;
+  align-items: flex-end;
+}
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.control-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.control-group input[type=range] {
+  width: 140px;
+  accent-color: var(--accent);
+}
+.control-group select {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  background: var(--bg);
+}
+.val {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+button.run-btn {
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button.run-btn:hover { background: #933D27; }
+button.run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Canvas */
+canvas {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+/* Network vis */
+.network-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 380px;
+}
+.network-canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Comparison table */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.comp-table th {
+  background: var(--bg-code);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+}
+.comp-table tr:hover td { background: #FAFAF7; }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.tag-sis { background: #EDE4F7; color: #6B3FA0; }
+.tag-sir { background: #E4EEF7; color: #2F5F8F; }
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.stat-box {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg-code);
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+}
+.stat-box .stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-box .stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Footer */
+.sticky-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+}
+.sticky-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  background-image: linear-gradient(var(--accent-light), var(--accent-light));
+  background-size: 100% 1px;
+  background-position: 0 92%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease;
+}
+.sticky-footer a:hover {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 2px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin: 8px 0;
+  font-size: 0.82rem;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nav-tabs { gap: 1px; }
+  .nav-tab { font-size: 0.7rem; padding: 8px 4px; }
+  .card { padding: 18px; }
+  .controls { gap: 10px; }
+  .control-group input[type=range] { width: 110px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Procesos en Redes</h1>
+  <p class="subtitle">De la estructura a la dinámica — Clase 6, Redes y Sistemas Complejos</p>
+  <p class="hero-meta">
+    Recurso desarrollado por
+    <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia</a>
+    en
+    <a href="https://criss-lab.com/" target="_blank" rel="noopener external">CRiSS Lab</a>.
+  </p>
+</div>
+
+<div class="container">
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-tab="tab-intro">Modelos</button>
+    <button class="nav-tab" data-tab="tab-threshold">Umbral</button>
+    <button class="nav-tab" data-tab="tab-sim">Simulación SIR</button>
+    <button class="nav-tab" data-tab="tab-intervention">Intervención</button>
+    <button class="nav-tab" data-tab="tab-temporal">Temporal</button>
+  </div>
+
+  <!-- TAB 1: SIS vs SIR -->
+  <div class="section active" id="tab-intro">
+    <div class="card">
+      <h2>SIS vs SIR: dos preguntas distintas</h2>
+      <p>Ambos modelos definen reglas locales de transición sobre una red. Pero responden preguntas diferentes y privilegian métricas diferentes.</p>
+
+      <table class="comp-table">
+        <thead><tr><th>Aspecto</th><th><span class="tag tag-sis">SIS</span></th><th><span class="tag tag-sir">SIR</span></th></tr></thead>
+        <tbody>
+          <tr><td>Secuencia</td><td>S → I → S</td><td>S → I → R</td></tr>
+          <tr><td>Pregunta central</td><td>¿La infección persiste?</td><td>¿Qué tan grande es el brote?</td></tr>
+          <tr><td>Objeto teórico</td><td>Prevalencia estacionaria</td><td>Tamaño final / percolación</td></tr>
+          <tr><td>Intuición estructural</td><td>Hubs como reservorios</td><td>Alcance geométrico del brote</td></tr>
+          <tr><td>Herramienta clásica</td><td>HMF, QMF, radio espectral</td><td>Transmissibility, percolación</td></tr>
+        </tbody>
+      </table>
+
+      <div class="caveat">Las visualizaciones de esta herramienta usan redes pequeñas (≤100 nodos) con tiempo discreto y actualización sincrónica. Los resultados ilustran tendencias cualitativas, no reproducen predicciones teóricas asintóticas.</div>
+    </div>
+
+    <div class="card">
+      <h2>Exploración interactiva: dinámica en un grafo pequeño</h2>
+      <p>Observa cómo se propaga un contagio paso a paso. Cada nodo cambia de color según su estado.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Modelo</label>
+          <select id="introModel"><option value="SIR">SIR</option><option value="SIS">SIS</option></select>
+        </div>
+        <div class="control-group">
+          <label>β (transmisión) <span class="val" id="introBetaVal">0.15</span></label>
+          <input type="range" id="introBeta" min="0.02" max="0.5" step="0.01" value="0.15">
+        </div>
+        <div class="control-group">
+          <label>μ (recuperación) <span class="val" id="introMuVal">0.15</span></label>
+          <input type="range" id="introMu" min="0.05" max="0.6" step="0.01" value="0.15">
+        </div>
+        <button class="run-btn" id="introRunBtn">▶ Iniciar</button>
+        <button class="run-btn" id="introResetBtn" style="background:var(--accent2)">↻ Reset</button>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--S-color)"></div>Susceptible</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--I-color)"></div>Infectado</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--R-color)"></div>Recuperado</div>
+      </div>
+      <div class="network-canvas-wrap"><canvas id="introCanvas"></canvas></div>
+      <div class="stats-row" id="introStats">
+        <div class="stat-box"><div class="stat-val" id="introStep">0</div><div class="stat-label">Paso</div></div>
+        <div class="stat-box"><div class="stat-val" id="introSCount">—</div><div class="stat-label">S</div></div>
+        <div class="stat-box"><div class="stat-val" id="introICount">—</div><div class="stat-label">I</div></div>
+        <div class="stat-box"><div class="stat-val" id="introRCount">—</div><div class="stat-label">R</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Regla microscópica</h3>
+      <p>En cada paso discreto, cada nodo infectado intenta contagiar a cada vecino susceptible con probabilidad <span class="math">β</span>, y luego se recupera con probabilidad <span class="math">μ</span>. En SIR pasa a R; en SIS vuelve a S.</p>
+      <p>El cociente <span class="math">λ = β/μ</span> actúa como parámetro de control efectivo. Pero el umbral depende también de la estructura de la red.</p>
+      <div class="note-rigorous">En SIR, Newman (2002) demostró que el tamaño final del brote es exactamente equivalente a un problema de bond percolation para redes estáticas aleatorias con transmissibility T por enlace.</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: Threshold -->
+  <div class="section" id="tab-threshold">
+    <div class="card">
+      <h2>Umbral epidémico: dos aproximaciones</h2>
+      <p>¿Existe un valor crítico de transmisibilidad tal que, por debajo, el brote muere rápido, y por encima, puede sostenerse? Ese valor es el <strong>umbral epidémico</strong>, y es una propiedad conjunta de dinámica + estructura.</p>
+
+      <h3>HMF: el papel de ⟨k²⟩</h3>
+      <div class="formula-block">λ<sub>c</sub><sup>HMF</sup> = ⟨k⟩ / ⟨k²⟩</div>
+      <p>Si la red tiene hubs (⟨k²⟩ grande), el umbral baja: la heterogeneidad facilita la persistencia porque los hubs actúan como reservorios dinámicos.</p>
+      <div class="caveat">Esta fórmula es rigurosa <em>dentro del esquema HMF</em> para SIS en redes no correlacionadas. No es una identidad universal. En redes finitas reales, lo correcto es hablar de umbral <em>efectivo</em> bajo, no necesariamente cero.</div>
+
+      <h3>QMF / Espectral: el papel de λ₁(A)</h3>
+      <div class="formula-block">λ<sub>c</sub><sup>QMF</sup> ≈ 1 / λ₁(A)</div>
+      <p>El radio espectral captura la capacidad de amplificación estructural de la red completa, no solo la distribución de grados.</p>
+      <div class="caveat">1/λ₁(A) es una aproximación clásica e informativa para SIS, no "el umbral exacto". La literatura posterior (Castellano & Pastor-Satorras, 2010) muestra que el comportamiento asintótico puede ser más sutil.</div>
+    </div>
+
+    <div class="card">
+      <h2>Comparación estructural interactiva</h2>
+      <p>Genera tres redes del mismo tamaño y compara sus proxies de umbral.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>N (nodos)</label>
+          <select id="threshN">
+            <option value="50">50</option>
+            <option value="100" selected>100</option>
+            <option value="200">200</option>
+          </select>
+        </div>
+        <button class="run-btn" id="threshRunBtn">Calcular proxies</button>
+      </div>
+      <div id="threshResults"></div>
+
+      <div class="note-rigorous">Si dos redes tienen proxies muy distintos, es razonable esperar regímenes de difusión distintos. No es correcto prometer el valor exacto del umbral a partir de un solo proxy.</div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SIR Simulation -->
+  <div class="section" id="tab-sim">
+    <div class="card">
+      <h2>Simulación SIR: trayectorias y Monte Carlo</h2>
+      <p>Una sola corrida puede engañar: la semilla inicial y el azar dominan. Por eso repetimos y promediamos.</p>
+
+      <div class="controls">
+        <div class="control-group">
+          <label>Topología</label>
+          <select id="simTopo">
+            <option value="ER">Erdős–Rényi</option>
+            <option value="WS">Watts–Strogatz</option>
+            <option value="BA" selected>Barabási–Albert</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>β <span class="val" id="simBetaVal">0.06</span></label>
+          <input type="range" id="simBeta" min="0.01" max="0.20" step="0.005" value="0.06">
+        </div>
+        <div class="control-group">
+          <label>μ <span class="val" id="simMuVal">0.25</span></label>
+          <input type="range" id="simMu" min="0.05" max="0.6" step="0.01" value="0.25">
+        </div>
+        <div class="control-group">
+          <label>Repeticiones</label>
+          <select id="simReps"><option value="20">20</option><option value="50" selected>50</option><option value="100">100</option></select>
+        </div>
+        <button class="run-btn" id="simRunBtn">▶ Simular</button>
+      </div>
+
+      <canvas id="simCanvas" height="300"></canvas>
+      <div class="stats-row" id="simStats" style="display:none">
+        <div class="stat-box"><div class="stat-val" id="simFinalMean">—</div><div class="stat-label">Tamaño final (media)</div></div>
+        <div class="stat-box"><div class="stat-val" id="simFinalStd">—</div><div class="stat-label">Tamaño final (σ)</div></div>
+        <div class="stat-box"><div class="stat-val" id="simPeakMean">—</div><div class="stat-label">Peak I (media)</div></div>
+      </div>
+
+      <div class="caveat">Las redes generadas aquí son pequeñas (N=150). Los resultados ilustran tendencias cualitativas. No sustituyen un análisis analítico del umbral ni deben extrapolarse a redes de otro tamaño sin cautela.</div>
+    </div>
+
+    <div class="card">
+      <h2>Transición empírica: barrido de λ</h2>
+      <p>Varía λ = β/μ y observa dónde el brote deja de ser pequeño. Esto muestra una zona de transición empírica, no un umbral analítico exacto.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Topología</label>
+          <select id="sweepTopo"><option value="ER">ER</option><option value="WS">WS</option><option value="BA" selected>BA</option></select>
+        </div>
+        <button class="run-btn" id="sweepRunBtn">▶ Barrido (tarda unos segundos)</button>
+      </div>
+      <canvas id="sweepCanvas" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- TAB 4: Intervention -->
+  <div class="section" id="tab-intervention">
+    <div class="card">
+      <h2>Estrategias de intervención</h2>
+      <p>Si remuevo o inmunizo ciertos nodos, ¿cuánto se reduce el brote? Tres estrategias clásicas:</p>
+      <table class="comp-table">
+        <thead><tr><th>Estrategia</th><th>Criterio</th><th>Intuición</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Random</strong></td><td>Al azar</td><td>Baseline</td></tr>
+          <tr><td><strong>Degree</strong></td><td>Mayor grado primero</td><td>Corta muchos contactos potenciales</td></tr>
+          <tr><td><strong>k-core</strong></td><td>Mayor coreness primero</td><td>Desarma el núcleo donde la difusión se sostiene</td></tr>
+        </tbody>
+      </table>
+      <div class="note-rigorous">No existe un ganador universal para todos los procesos y todas las métricas (Bramson et al., 2016). El ranking depende del proceso (SIR vs SIS), la red y el criterio de evaluación.</div>
+    </div>
+
+    <div class="card">
+      <h2>Comparación interactiva</h2>
+      <div class="controls">
+        <div class="control-group">
+          <label>Fracción inmunizada <span class="val" id="intFracVal">10%</span></label>
+          <input type="range" id="intFrac" min="0.02" max="0.3" step="0.01" value="0.10">
+        </div>
+        <div class="control-group">
+          <label>β <span class="val" id="intBetaVal">0.06</span></label>
+          <input type="range" id="intBeta" min="0.01" max="0.20" step="0.005" value="0.06">
+        </div>
+        <button class="run-btn" id="intRunBtn">▶ Comparar estrategias</button>
+      </div>
+      <canvas id="intCanvas" height="300"></canvas>
+      <div id="intResults"></div>
+
+      <div class="caveat">La comparación es sobre una red BA de 150 nodos con SIR discreto. Al remover nodos cambian tamaño y conectividad; comparamos siempre contra un baseline explícito.</div>
+    </div>
+  </div>
+
+  <!-- TAB 5: Temporal -->
+  <div class="section" id="tab-temporal">
+    <div class="card">
+      <h2>Red temporal vs red agregada</h2>
+      <p>La red agregada responde: <em>¿quién estuvo conectado con quién en algún momento?</em><br>
+      La red temporal responde: <em>¿existió una secuencia cronológicamente válida para transmitir?</em></p>
+      <p>No son la misma pregunta. El orden de los contactos es parte del mecanismo, no un detalle de formato.</p>
+    </div>
+
+    <div class="card">
+      <h2>Ejemplo interactivo</h2>
+      <p>Una cadena de contactos con timestamps. El nodo 0 inicia infectado. Compara qué nodos se alcanzan temporalmente vs en la red agregada.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>β (transmisión por contacto) <span class="val" id="tempBetaVal">0.90</span></label>
+          <input type="range" id="tempBeta" min="0.1" max="1.0" step="0.05" value="0.90">
+        </div>
+        <button class="run-btn" id="tempRunBtn">▶ Simular</button>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px">
+        <div style="flex:1;min-width:250px">
+          <h3 style="font-size:0.95rem">Red temporal (contactos ordenados)</h3>
+          <canvas id="tempCanvasA" height="240"></canvas>
+        </div>
+        <div style="flex:1;min-width:250px">
+          <h3 style="font-size:0.95rem">Red agregada (todos los contactos)</h3>
+          <canvas id="tempCanvasB" height="240"></canvas>
+        </div>
+      </div>
+      <div id="tempResults" style="margin-top:12px"></div>
+      <div class="note-rigorous">La red agregada sobreestima accesibilidad cuando ignora restricciones temporales. Este es un resultado metodológico sólido (Holme, 2015).</div>
+    </div>
+
+    <div class="card">
+      <h3>Idea central de la clase</h3>
+      <p style="font-family:var(--font-serif);font-size:1.1rem;color:var(--accent);font-style:italic;text-align:center;padding:12px 0;">
+        "La importancia de un nodo depende del proceso dinámico que ocurre sobre la red, del horizonte temporal y del criterio de desempeño."
+      </p>
+      <p>No existe una centralidad universalmente correcta. La medida adecuada depende del mecanismo de propagación y del objetivo de intervención.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sticky-footer">
+  Redes y Sistemas Complejos · Clase 6 · by
+  <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia, Ph.D.</a>
+  ·
+  <a href="https://criss-lab.com/" target="_blank" rel="noopener external">CRiSS Lab</a>
+</div>
+
+<script>
+// ============================================================
+// CORE NETWORK GENERATION & SIMULATION ENGINE
+// ============================================================
+
+class PRNG {
+  constructor(seed=42) { this.s = seed; }
+  next() { this.s = (this.s * 1664525 + 1013904223) & 0x7fffffff; return this.s / 0x7fffffff; }
+}
+
+function generateER(n, p, rng) {
+  const adj = Array.from({length:n}, ()=>[]);
+  for (let i=0;i<n;i++) for (let j=i+1;j<n;j++) {
+    if (rng.next()<p) { adj[i].push(j); adj[j].push(i); }
+  }
+  return adj;
+}
+
+function generateBA(n, m, rng) {
+  const adj = Array.from({length:n}, ()=>[]);
+  const stubs = [];
+  // start with clique of m+1
+  for (let i=0;i<=m;i++) for (let j=i+1;j<=m;j++) {
+    adj[i].push(j); adj[j].push(i); stubs.push(i,j);
+  }
+  for (let i=m+1;i<n;i++) {
+    const targets = new Set();
+    while (targets.size<m) {
+      const t = stubs[Math.floor(rng.next()*stubs.length)];
+      if (t!==i) targets.add(t);
+    }
+    for (const t of targets) { adj[i].push(t); adj[t].push(i); stubs.push(i,t); }
+  }
+  return adj;
+}
+
+function generateWS(n, k, p, rng) {
+  const adj = Array.from({length:n}, ()=>new Set());
+  for (let i=0;i<n;i++) for (let j=1;j<=k/2;j++) {
+    const nb = (i+j)%n;
+    adj[i].add(nb); adj[nb].add(i);
+  }
+  // rewire
+  for (let i=0;i<n;i++) for (let j=1;j<=k/2;j++) {
+    if (rng.next()<p) {
+      const nb = (i+j)%n;
+      if (adj[i].has(nb)) {
+        let newNb;
+        let attempts=0;
+        do { newNb = Math.floor(rng.next()*n); attempts++; } while ((newNb===i || adj[i].has(newNb)) && attempts<50);
+        if (attempts<50) {
+          adj[i].delete(nb); adj[nb].delete(i);
+          adj[i].add(newNb); adj[newNb].add(i);
+        }
+      }
+    }
+  }
+  return Array.from(adj, s=>[...s]);
+}
+
+function makeNetwork(type, n=150) {
+  const rng = new PRNG(7);
+  if (type==='ER') return generateER(n, 8/(n-1), rng);
+  if (type==='WS') return generateWS(n, 8, 0.08, rng);
+  if (type==='BA') return generateBA(n, 4, rng);
+}
+
+function degree(adj, i) { return adj[i].length; }
+function degrees(adj) { return adj.map((_,i)=>degree(adj,i)); }
+
+function kCore(adj) {
+  const n = adj.length;
+  const deg = degrees(adj);
+  const core = [...deg];
+  const removed = new Array(n).fill(false);
+  // simple iterative peeling
+  let changed = true;
+  while(changed) {
+    changed = false;
+    for (let i=0;i<n;i++) {
+      if (removed[i]) continue;
+      let effectiveDeg = 0;
+      for (const j of adj[i]) if (!removed[j]) effectiveDeg++;
+      if (effectiveDeg < core[i]) {
+        core[i] = effectiveDeg;
+        changed = true;
+      }
+    }
+  }
+  return core;
+}
+
+// Spectral radius via power iteration
+function spectralRadius(adj) {
+  const n = adj.length;
+  let v = Array.from({length:n}, ()=>1/Math.sqrt(n));
+  for (let iter=0;iter<100;iter++) {
+    const w = new Array(n).fill(0);
+    for (let i=0;i<n;i++) for (const j of adj[i]) w[i]+=v[j];
+    const norm = Math.sqrt(w.reduce((s,x)=>s+x*x,0));
+    if (norm<1e-10) return 0;
+    for (let i=0;i<n;i++) v[i]=w[i]/norm;
+  }
+  // Rayleigh quotient
+  const w = new Array(n).fill(0);
+  for (let i=0;i<n;i++) for (const j of adj[i]) w[i]+=v[j];
+  return w.reduce((s,x,i)=>s+x*v[i],0);
+}
+
+function simulateSIR(adj, beta, mu, seedNode, rng, maxSteps=200) {
+  const n = adj.length;
+  const state = new Array(n).fill(0); // 0=S,1=I,2=R
+  state[seedNode]=1;
+  const S=[],I=[],R=[];
+  for (let step=0;step<maxSteps;step++) {
+    let s=0,inf=0,r=0;
+    for (let i=0;i<n;i++) { if(state[i]===0) s++; else if(state[i]===1) inf++; else r++; }
+    S.push(s);I.push(inf);R.push(r);
+    if (inf===0) break;
+    const newI=new Set(), newR=new Set();
+    for (let i=0;i<n;i++) {
+      if (state[i]!==1) continue;
+      for (const j of adj[i]) if (state[j]===0 && rng.next()<beta) newI.add(j);
+      if (rng.next()<mu) newR.add(i);
+    }
+    for (const j of newI) if (state[j]===0) state[j]=1;
+    for (const i of newR) state[i]=2;
+  }
+  return {S,I,R, finalSize:R[R.length-1], peakI:Math.max(...I), states:state};
+}
+
+function simulateSIS(adj, beta, mu, seedNode, rng, maxSteps=200) {
+  const n = adj.length;
+  const state = new Array(n).fill(0);
+  state[seedNode]=1;
+  const S=[],I=[];
+  for (let step=0;step<maxSteps;step++) {
+    let s=0,inf=0;
+    for (let i=0;i<n;i++) { if(state[i]===0) s++; else inf++; }
+    S.push(s);I.push(inf);
+    if (inf===0) break;
+    const newI=new Set(), newS=new Set();
+    for (let i=0;i<n;i++) {
+      if (state[i]!==1) continue;
+      for (const j of adj[i]) if (state[j]===0 && rng.next()<beta) newI.add(j);
+      if (rng.next()<mu) newS.add(i);
+    }
+    for (const j of newI) if (state[j]===0) state[j]=1;
+    for (const i of newS) if (!newI.has(i)) state[i]=0;
+  }
+  return {S,I, states:state};
+}
+
+// Layout: force-directed (simple)
+function layoutNetwork(adj, width, height) {
+  const n = adj.length;
+  const pos = Array.from({length:n}, ()=>[width*0.2+Math.random()*width*0.6, height*0.2+Math.random()*height*0.6]);
+  const k = Math.sqrt(width*height/n)*0.6;
+  for (let iter=0;iter<80;iter++) {
+    const disp = Array.from({length:n}, ()=>[0,0]);
+    // repulsion
+    for (let i=0;i<n;i++) for (let j=i+1;j<n;j++) {
+      let dx=pos[i][0]-pos[j][0], dy=pos[i][1]-pos[j][1];
+      let d=Math.sqrt(dx*dx+dy*dy)||0.01;
+      let f=k*k/d*0.5;
+      disp[i][0]+=dx/d*f; disp[i][1]+=dy/d*f;
+      disp[j][0]-=dx/d*f; disp[j][1]-=dy/d*f;
+    }
+    // attraction
+    for (let i=0;i<n;i++) for (const j of adj[i]) {
+      if (j<=i) continue;
+      let dx=pos[i][0]-pos[j][0], dy=pos[i][1]-pos[j][1];
+      let d=Math.sqrt(dx*dx+dy*dy)||0.01;
+      let f=d/k*0.3;
+      disp[i][0]-=dx/d*f; disp[i][1]-=dy/d*f;
+      disp[j][0]+=dx/d*f; disp[j][1]+=dy/d*f;
+    }
+    const temp = 5*(1-iter/80);
+    for (let i=0;i<n;i++) {
+      let d=Math.sqrt(disp[i][0]**2+disp[i][1]**2)||0.01;
+      pos[i][0]+=disp[i][0]/d*Math.min(d,temp);
+      pos[i][1]+=disp[i][1]/d*Math.min(d,temp);
+      pos[i][0]=Math.max(20,Math.min(width-20,pos[i][0]));
+      pos[i][1]=Math.max(20,Math.min(height-20,pos[i][1]));
+    }
+  }
+  return pos;
+}
+
+function drawNetwork(canvas, adj, pos, stateColors) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,w,h);
+
+  // scale pos to canvas
+  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  for (const p of pos) { minX=Math.min(minX,p[0]);maxX=Math.max(maxX,p[0]);minY=Math.min(minY,p[1]);maxY=Math.max(maxY,p[1]); }
+  const pad=30;
+  const sx=x=>(x-minX)/(maxX-minX||1)*(w-2*pad)+pad;
+  const sy=y=>(y-minY)/(maxY-minY||1)*(h-2*pad)+pad;
+
+  // edges
+  ctx.strokeStyle='#D0CCC4';
+  ctx.lineWidth=0.6;
+  for (let i=0;i<adj.length;i++) for (const j of adj[i]) {
+    if (j>i) {
+      ctx.beginPath();
+      ctx.moveTo(sx(pos[i][0]),sy(pos[i][1]));
+      ctx.lineTo(sx(pos[j][0]),sy(pos[j][1]));
+      ctx.stroke();
+    }
+  }
+  // nodes
+  const n = adj.length;
+  const r = Math.max(3, Math.min(8, 200/Math.sqrt(n)));
+  const colors = ['#4A90D9','#D94A4A','#6BBF6B'];
+  for (let i=0;i<n;i++) {
+    ctx.beginPath();
+    ctx.arc(sx(pos[i][0]),sy(pos[i][1]),r,0,Math.PI*2);
+    ctx.fillStyle = colors[stateColors?stateColors[i]:0];
+    ctx.fill();
+    ctx.strokeStyle='#fff';
+    ctx.lineWidth=1;
+    ctx.stroke();
+  }
+}
+
+function drawChart(canvas, datasets, options={}) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,w,h);
+
+  const pad = {t:30, r:20, b:40, l:50};
+  const cw=w-pad.l-pad.r, ch=h-pad.t-pad.b;
+
+  let maxY=0, maxX=0;
+  for (const ds of datasets) {
+    for (let i=0;i<ds.data.length;i++) {
+      if (ds.data[i]>maxY) maxY=ds.data[i];
+      if (i>maxX) maxX=i;
+    }
+  }
+  if (options.xData) maxX=Math.max(...options.xData);
+  if (options.maxY) maxY=options.maxY;
+  maxY=maxY*1.1||1;
+
+  // axes
+  ctx.strokeStyle='#D0CCC4';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,pad.t+ch);ctx.lineTo(pad.l+cw,pad.t+ch);
+  ctx.stroke();
+
+  // y ticks
+  ctx.fillStyle='#888';ctx.font='11px "DM Sans"';ctx.textAlign='right';
+  for (let i=0;i<=4;i++) {
+    const v=maxY*i/4;
+    const y=pad.t+ch-ch*i/4;
+    ctx.fillText(options.yFormat?options.yFormat(v):Math.round(v), pad.l-6, y+4);
+    if(i>0){ctx.strokeStyle='#EDEBE6';ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();}
+  }
+
+  // x label
+  if(options.xLabel){ctx.textAlign='center';ctx.fillStyle='#888';ctx.font='12px "DM Sans"';ctx.fillText(options.xLabel,pad.l+cw/2,h-4);}
+  if(options.yLabel){ctx.save();ctx.translate(12,pad.t+ch/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.font='12px "DM Sans"';ctx.fillStyle='#888';ctx.fillText(options.yLabel,0,0);ctx.restore();}
+
+  // title
+  if(options.title){ctx.textAlign='center';ctx.fillStyle='#1A1A1A';ctx.font='600 13px "DM Sans"';ctx.fillText(options.title,pad.l+cw/2,18);}
+
+  // lines
+  for (const ds of datasets) {
+    ctx.strokeStyle=ds.color||'#333';
+    ctx.lineWidth=ds.lineWidth||2;
+    ctx.beginPath();
+    for (let i=0;i<ds.data.length;i++) {
+      const x = pad.l + (options.xData ? (options.xData[i]/maxX) : (i/(ds.data.length-1||1))) * cw;
+      const y = pad.t + ch - (ds.data[i]/maxY)*ch;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // dots
+    if (ds.dots) {
+      for (let i=0;i<ds.data.length;i++) {
+        const x = pad.l + (options.xData ? (options.xData[i]/maxX) : (i/(ds.data.length-1||1))) * cw;
+        const y = pad.t + ch - (ds.data[i]/maxY)*ch;
+        ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fillStyle=ds.color;ctx.fill();
+      }
+    }
+  }
+
+  // legend
+  if (datasets.length>1 && !options.noLegend) {
+    let lx=pad.l+10, ly=pad.t+8;
+    for (const ds of datasets) {
+      ctx.fillStyle=ds.color;
+      ctx.fillRect(lx,ly,14,3);
+      ctx.fillStyle='#555';ctx.font='11px "DM Sans"';ctx.textAlign='left';
+      ctx.fillText(ds.label||'',lx+18,ly+5);
+      lx+=ctx.measureText(ds.label||'').width+36;
+    }
+  }
+}
+
+// Bar chart
+function drawBarChart(canvas, labels, datasets, options={}) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio||1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,w,h);
+
+  const pad={t:30,r:20,b:50,l:55};
+  const cw=w-pad.l-pad.r, ch=h-pad.t-pad.b;
+  const nGroups = labels.length;
+  const nBars = datasets.length;
+  const groupW = cw/nGroups;
+  const barW = Math.min(groupW*0.7/nBars, 40);
+
+  let maxY=0;
+  for (const ds of datasets) for (const v of ds.data) if(v>maxY) maxY=v;
+  maxY*=1.15;
+
+  // axes
+  ctx.strokeStyle='#D0CCC4';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,pad.t+ch);ctx.lineTo(pad.l+cw,pad.t+ch);ctx.stroke();
+
+  // y ticks
+  ctx.fillStyle='#888';ctx.font='11px "DM Sans"';ctx.textAlign='right';
+  for (let i=0;i<=4;i++){const v=maxY*i/4;const y=pad.t+ch-ch*i/4;ctx.fillText(Math.round(v),pad.l-6,y+4);}
+
+  // bars
+  for (let g=0;g<nGroups;g++) {
+    const cx=pad.l+groupW*(g+0.5);
+    for (let b=0;b<nBars;b++) {
+      const x=cx-nBars*barW/2+b*barW;
+      const val=datasets[b].data[g];
+      const bh=(val/maxY)*ch;
+      ctx.fillStyle=datasets[b].color;
+      ctx.fillRect(x,pad.t+ch-bh,barW-2,bh);
+    }
+    ctx.fillStyle='#555';ctx.font='11px "DM Sans"';ctx.textAlign='center';
+    ctx.fillText(labels[g],cx,pad.t+ch+18);
+  }
+
+  if(options.title){ctx.textAlign='center';ctx.fillStyle='#1A1A1A';ctx.font='600 13px "DM Sans"';ctx.fillText(options.title,pad.l+cw/2,18);}
+
+  // legend
+  let lx=pad.l+10,ly=pad.t+ch+32;
+  for (const ds of datasets) {
+    ctx.fillStyle=ds.color;ctx.fillRect(lx,ly,12,12);
+    ctx.fillStyle='#555';ctx.font='11px "DM Sans"';ctx.textAlign='left';ctx.fillText(ds.label,lx+16,ly+10);
+    lx+=ctx.measureText(ds.label).width+30;
+  }
+}
+
+
+// ============================================================
+// TAB NAVIGATION
+// ============================================================
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ============================================================
+// TAB 1: Intro animation
+// ============================================================
+{
+  const adj30 = generateBA(30, 2, new PRNG(42));
+  const pos30 = layoutNetwork(adj30, 600, 340);
+  let states30 = new Array(30).fill(0);
+  let animInterval = null;
+  let step = 0;
+
+  function resetIntro() {
+    states30 = new Array(30).fill(0);
+    // pick highest degree node as seed
+    let maxD=0,seed=0;
+    for(let i=0;i<30;i++){if(adj30[i].length>maxD){maxD=adj30[i].length;seed=i;}}
+    states30[seed]=1;
+    step=0;
+    if(animInterval){clearInterval(animInterval);animInterval=null;}
+    drawNetwork(document.getElementById('introCanvas'), adj30, pos30, states30);
+    updateIntroStats();
+  }
+
+  function updateIntroStats(){
+    let s=0,inf=0,r=0;
+    for(const st of states30){if(st===0)s++;else if(st===1)inf++;else r++;}
+    document.getElementById('introStep').textContent=step;
+    document.getElementById('introSCount').textContent=s;
+    document.getElementById('introICount').textContent=inf;
+    document.getElementById('introRCount').textContent=r;
+  }
+
+  document.getElementById('introBeta').oninput=e=>{document.getElementById('introBetaVal').textContent=parseFloat(e.target.value).toFixed(2);};
+  document.getElementById('introMu').oninput=e=>{document.getElementById('introMuVal').textContent=parseFloat(e.target.value).toFixed(2);};
+
+  document.getElementById('introResetBtn').onclick=resetIntro;
+
+  document.getElementById('introRunBtn').onclick=()=>{
+    if(animInterval){clearInterval(animInterval);animInterval=null;return;}
+    const beta=parseFloat(document.getElementById('introBeta').value);
+    const mu=parseFloat(document.getElementById('introMu').value);
+    const model=document.getElementById('introModel').value;
+    const rng=new PRNG(Date.now()%10000);
+
+    animInterval = setInterval(()=>{
+      let infected=[];
+      for(let i=0;i<30;i++) if(states30[i]===1) infected.push(i);
+      if(infected.length===0){clearInterval(animInterval);animInterval=null;return;}
+
+      const newI=new Set(), newRec=new Set();
+      for(const i of infected){
+        for(const j of adj30[i]) if(states30[j]===0 && rng.next()<beta) newI.add(j);
+        if(rng.next()<mu) newRec.add(i);
+      }
+      for(const j of newI) if(states30[j]===0) states30[j]=1;
+      for(const i of newRec) states30[i]= model==='SIR'?2:0;
+      step++;
+      drawNetwork(document.getElementById('introCanvas'), adj30, pos30, states30);
+      updateIntroStats();
+    }, 500);
+  };
+
+  resetIntro();
+}
+
+// ============================================================
+// TAB 2: Threshold proxies
+// ============================================================
+document.getElementById('threshRunBtn').onclick=()=>{
+  const n = parseInt(document.getElementById('threshN').value);
+  const results = [];
+  for (const [name,type] of [['Erdős–Rényi','ER'],['Watts–Strogatz','WS'],['Barabási–Albert','BA']]) {
+    const adj = makeNetwork(type, n);
+    const deg = degrees(adj);
+    const k1 = deg.reduce((a,b)=>a+b,0)/n;
+    const k2 = deg.reduce((a,b)=>a+b*b,0)/n;
+    const lr = spectralRadius(adj);
+    results.push({name, k1, k2, hmf:k1/k2, spectral:1/lr, lr, edges:adj.reduce((s,a)=>s+a.length,0)/2});
+  }
+  let html='<table class="comp-table"><thead><tr><th>Red</th><th>⟨k⟩</th><th>⟨k²⟩</th><th>HMF proxy</th><th>λ₁</th><th>1/λ₁</th></tr></thead><tbody>';
+  for(const r of results){
+    html+=`<tr><td><strong>${r.name}</strong></td><td>${r.k1.toFixed(2)}</td><td>${r.k2.toFixed(1)}</td><td>${r.hmf.toFixed(4)}</td><td>${r.lr.toFixed(2)}</td><td>${r.spectral.toFixed(4)}</td></tr>`;
+  }
+  html+='</tbody></table>';
+  html+='<p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px">BA tiene ⟨k²⟩ mayor y λ₁ mayor → proxies de umbral más bajos → más fácil sostener contagio.</p>';
+  document.getElementById('threshResults').innerHTML=html;
+};
+
+// ============================================================
+// TAB 3: SIR Simulation
+// ============================================================
+document.getElementById('simBeta').oninput=e=>{document.getElementById('simBetaVal').textContent=parseFloat(e.target.value).toFixed(3);};
+document.getElementById('simMu').oninput=e=>{document.getElementById('simMuVal').textContent=parseFloat(e.target.value).toFixed(2);};
+
+document.getElementById('simRunBtn').onclick=()=>{
+  const topo=document.getElementById('simTopo').value;
+  const beta=parseFloat(document.getElementById('simBeta').value);
+  const mu=parseFloat(document.getElementById('simMu').value);
+  const reps=parseInt(document.getElementById('simReps').value);
+  const adj=makeNetwork(topo,150);
+  const n=adj.length;
+
+  let allFinal=[], allPeak=[];
+  let avgS=null, avgI=null, avgR=null;
+
+  for(let r=0;r<reps;r++){
+    const rng=new PRNG(r*17+3);
+    const seed=Math.floor(rng.next()*n);
+    const sim=simulateSIR(adj,beta,mu,seed,rng);
+    allFinal.push(sim.finalSize);
+    allPeak.push(sim.peakI);
+    const len=sim.S.length;
+    if(!avgS){avgS=new Float64Array(200);avgI=new Float64Array(200);avgR=new Float64Array(200);}
+    for(let t=0;t<Math.min(len,200);t++){avgS[t]+=sim.S[t];avgI[t]+=sim.I[t];avgR[t]+=sim.R[t];}
+  }
+  for(let t=0;t<200;t++){avgS[t]/=reps;avgI[t]/=reps;avgR[t]/=reps;}
+
+  // trim trailing zeros from avgI
+  let maxT=200;
+  for(let t=199;t>0;t--){if(avgI[t]>0.01||avgR[t]>avgR[t-1]+0.01){maxT=t+5;break;}}
+  maxT=Math.min(maxT,200);
+
+  drawChart(document.getElementById('simCanvas'),
+    [{label:'S(t)', data:Array.from(avgS.slice(0,maxT)), color:'#4A90D9'},
+     {label:'I(t)', data:Array.from(avgI.slice(0,maxT)), color:'#D94A4A'},
+     {label:'R(t)', data:Array.from(avgR.slice(0,maxT)), color:'#6BBF6B'}],
+    {title:`SIR promedio sobre ${reps} corridas — ${topo} (N=150)`, xLabel:'Tiempo discreto', yLabel:'Nodos', maxY:n}
+  );
+
+  const mean=v=>v.reduce((a,b)=>a+b,0)/v.length;
+  const std=v=>{const m=mean(v);return Math.sqrt(v.reduce((a,b)=>a+(b-m)**2,0)/v.length);};
+
+  document.getElementById('simStats').style.display='flex';
+  document.getElementById('simFinalMean').textContent=mean(allFinal).toFixed(1);
+  document.getElementById('simFinalStd').textContent=std(allFinal).toFixed(1);
+  document.getElementById('simPeakMean').textContent=mean(allPeak).toFixed(1);
+};
+
+// Sweep
+document.getElementById('sweepRunBtn').onclick=()=>{
+  const btn=document.getElementById('sweepRunBtn');
+  btn.disabled=true;btn.textContent='Calculando...';
+
+  setTimeout(()=>{
+    const topo=document.getElementById('sweepTopo').value;
+    const adj=makeNetwork(topo,150);
+    const n=adj.length;
+    const mu=0.25;
+    const betas=[];
+    for(let b=0.01;b<=0.15;b+=0.012) betas.push(b);
+    const lambdas=betas.map(b=>b/mu);
+    const fracFinal=[];
+
+    for(const beta of betas){
+      let total=0;
+      const reps=40;
+      for(let r=0;r<reps;r++){
+        const rng=new PRNG(r*13+7);
+        const seed=Math.floor(rng.next()*n);
+        const sim=simulateSIR(adj,beta,mu,seed,rng);
+        total+=sim.finalSize;
+      }
+      fracFinal.push(total/reps/n);
+    }
+
+    drawChart(document.getElementById('sweepCanvas'),
+      [{data:fracFinal, color:'var(--accent)', dots:true, label:'Fracción final infectada'}],
+      {xData:lambdas, title:`Transición empírica — ${topo}`, xLabel:'λ = β/μ', yLabel:'Fracción final', yFormat:v=>v.toFixed(2), maxY:Math.max(...fracFinal)*1.2||0.5}
+    );
+    btn.disabled=false;btn.textContent='▶ Barrido (tarda unos segundos)';
+  },50);
+};
+
+// ============================================================
+// TAB 4: Intervention
+// ============================================================
+document.getElementById('intFrac').oninput=e=>{document.getElementById('intFracVal').textContent=Math.round(parseFloat(e.target.value)*100)+'%';};
+document.getElementById('intBeta').oninput=e=>{document.getElementById('intBetaVal').textContent=parseFloat(e.target.value).toFixed(3);};
+
+document.getElementById('intRunBtn').onclick=()=>{
+  const btn=document.getElementById('intRunBtn');
+  btn.disabled=true;btn.textContent='Simulando...';
+
+  setTimeout(()=>{
+    const frac=parseFloat(document.getElementById('intFrac').value);
+    const beta=parseFloat(document.getElementById('intBeta').value);
+    const mu=0.25;
+    const adj=makeNetwork('BA',150);
+    const n=adj.length;
+    const reps=50;
+
+    function mcFinal(a,reps){
+      let total=0;const nn=a.length;
+      if(nn===0) return 0;
+      for(let r=0;r<reps;r++){
+        const rng=new PRNG(r*11+5);
+        const seed=Math.floor(rng.next()*nn);
+        total+=simulateSIR(a,beta,mu,seed,rng).finalSize;
+      }
+      return total/reps;
+    }
+
+    // baseline
+    const baseline=mcFinal(adj,reps);
+
+    // random (average 5 trials)
+    let randomTotal=0;
+    for(let t=0;t<5;t++){
+      const rng=new PRNG(t*7);
+      const nodes=[];
+      const perm=[...Array(n).keys()];
+      for(let i=n-1;i>0;i--){const j=Math.floor(rng.next()*(i+1));[perm[i],perm[j]]=[perm[j],perm[i]];}
+      const k=Math.max(1,Math.floor(frac*n));
+      const toRemove=new Set(perm.slice(0,k));
+      const newAdj=adj.map((nb,i)=>toRemove.has(i)?[]:nb.filter(j=>!toRemove.has(j)));
+      randomTotal+=mcFinal(newAdj,reps);
+    }
+    const randomFinal=randomTotal/5;
+
+    // degree
+    const deg=degrees(adj);
+    const byDeg=[...Array(n).keys()].sort((a,b)=>deg[b]-deg[a]);
+    const kRemove=Math.max(1,Math.floor(frac*n));
+    const degSet=new Set(byDeg.slice(0,kRemove));
+    const degAdj=adj.map((nb,i)=>degSet.has(i)?[]:nb.filter(j=>!degSet.has(j)));
+    const degreeFinal=mcFinal(degAdj,reps);
+
+    // kcore
+    const core=kCore(adj);
+    const byCore=[...Array(n).keys()].sort((a,b)=>core[b]-core[a]);
+    const coreSet=new Set(byCore.slice(0,kRemove));
+    const coreAdj=adj.map((nb,i)=>coreSet.has(i)?[]:nb.filter(j=>!coreSet.has(j)));
+    const coreFinal=mcFinal(coreAdj,reps);
+
+    drawBarChart(document.getElementById('intCanvas'),
+      ['Sin intervención','Random','Degree','k-core'],
+      [{label:'Tamaño final promedio', data:[baseline,randomFinal,degreeFinal,coreFinal], color:'#B04A2F'}],
+      {title:`Efecto de inmunizar ${Math.round(frac*100)}% de la red BA`}
+    );
+
+    let html='<div class="stats-row">';
+    html+=`<div class="stat-box"><div class="stat-val">${baseline.toFixed(1)}</div><div class="stat-label">Baseline</div></div>`;
+    html+=`<div class="stat-box"><div class="stat-val">${randomFinal.toFixed(1)}</div><div class="stat-label">Random</div></div>`;
+    html+=`<div class="stat-box"><div class="stat-val">${degreeFinal.toFixed(1)}</div><div class="stat-label">Degree</div></div>`;
+    html+=`<div class="stat-box"><div class="stat-val">${coreFinal.toFixed(1)}</div><div class="stat-label">k-core</div></div>`;
+    html+='</div>';
+    const bestStrat = degreeFinal<coreFinal ? 'Degree' : 'k-core';
+    const reduction = ((1-Math.min(degreeFinal,coreFinal)/baseline)*100).toFixed(0);
+    html+=`<p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px"><strong>${bestStrat}</strong> logra la mayor reducción (~${reduction}% respecto al baseline) bajo estos parámetros. Este resultado es contingente al proceso SIR y la métrica de tamaño final.</p>`;
+    document.getElementById('intResults').innerHTML=html;
+
+    btn.disabled=false;btn.textContent='▶ Comparar estrategias';
+  },50);
+};
+
+// ============================================================
+// TAB 5: Temporal
+// ============================================================
+document.getElementById('tempBeta').oninput=e=>{document.getElementById('tempBetaVal').textContent=parseFloat(e.target.value).toFixed(2);};
+
+const tempEdges = [
+  [0,1,0],[1,2,1],[2,3,2],[3,4,3],[0,4,10],[4,5,11],[5,6,12]
+];
+const tempNodes = 7;
+const tempPositions = [[80,120],[180,60],[280,120],[380,60],[480,120],[580,60],[680,120]];
+
+function drawTempNetwork(canvasId, nodeColors, edges, showAll=false) {
+  const canvas=document.getElementById(canvasId);
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const w=canvas.clientWidth,h=canvas.clientHeight;
+  canvas.width=w*dpr;canvas.height=h*dpr;
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,w,h);
+
+  const sx=x=>x/750*w;
+  const sy=y=>y/240*h;
+
+  const edgesToDraw = showAll ? tempEdges : edges;
+  for(const [u,v,t] of edgesToDraw){
+    ctx.strokeStyle=showAll?'#C0BCB4':'#C0BCB4';
+    ctx.lineWidth=1.5;
+    ctx.beginPath();
+    ctx.moveTo(sx(tempPositions[u][0]),sy(tempPositions[u][1]));
+    ctx.lineTo(sx(tempPositions[v][0]),sy(tempPositions[v][1]));
+    ctx.stroke();
+    if(!showAll){
+      const mx=(tempPositions[u][0]+tempPositions[v][0])/2;
+      const my=(tempPositions[u][1]+tempPositions[v][1])/2;
+      ctx.fillStyle='#888';ctx.font='10px "JetBrains Mono"';ctx.textAlign='center';
+      ctx.fillText('t='+t,sx(mx),sy(my)-6);
+    }
+  }
+
+  const colors=['#4A90D9','#D94A4A','#6BBF6B','#AAA'];
+  for(let i=0;i<tempNodes;i++){
+    ctx.beginPath();
+    ctx.arc(sx(tempPositions[i][0]),sy(tempPositions[i][1]),10,0,Math.PI*2);
+    ctx.fillStyle=colors[nodeColors[i]];
+    ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 10px "DM Sans"';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(i,sx(tempPositions[i][0]),sy(tempPositions[i][1]));
+  }
+}
+
+document.getElementById('tempRunBtn').onclick=()=>{
+  const beta=parseFloat(document.getElementById('tempBeta').value);
+  const rng=new PRNG(Date.now()%10000);
+
+  // temporal simulation
+  const infectedTime={0:-1};
+  let infected=new Set([0]);
+  let recovered=new Set();
+  const times=[...new Set(tempEdges.map(e=>e[2]))].sort((a,b)=>a-b);
+
+  for(const t of times){
+    const todayEdges=tempEdges.filter(e=>e[2]===t);
+    const newInf=new Set();
+    for(const [u,v] of todayEdges){
+      if(infected.has(u) && !(v in infectedTime) && rng.next()<beta) { newInf.add(v); infectedTime[v]=t; }
+      if(infected.has(v) && !(u in infectedTime) && rng.next()<beta) { newInf.add(u); infectedTime[u]=t; }
+    }
+    for(const x of infected) recovered.add(x);
+    infected=newInf;
+  }
+  for(const x of infected) recovered.add(x);
+
+  const tempColors=new Array(tempNodes).fill(0);
+  for(const node of recovered) tempColors[node]=2;
+  for(const node of infected) tempColors[node]=1;
+  if(!(0 in infectedTime)){} // source always infected
+  tempColors[0]=2;
+
+  // aggregated: all reachable from 0 via BFS
+  const aggAdj=Array.from({length:tempNodes},()=>[]);
+  for(const [u,v] of tempEdges){aggAdj[u].push(v);aggAdj[v].push(u);}
+  const visited=new Set([0]);
+  const queue=[0];
+  while(queue.length){
+    const u=queue.shift();
+    for(const v of aggAdj[u]) if(!visited.has(v)){visited.add(v);queue.push(v);}
+  }
+  const aggColors=new Array(tempNodes).fill(3);
+  for(const v of visited) aggColors[v]=2;
+  aggColors[0]=2;
+
+  drawTempNetwork('tempCanvasA', tempColors, tempEdges, false);
+  drawTempNetwork('tempCanvasB', aggColors, tempEdges, true);
+
+  const tempReached=Object.keys(infectedTime).length;
+  const aggReached=visited.size;
+
+  let html=`<div class="stats-row">
+    <div class="stat-box"><div class="stat-val">${tempReached}</div><div class="stat-label">Alcanzados (temporal)</div></div>
+    <div class="stat-box"><div class="stat-val">${aggReached}</div><div class="stat-label">Alcanzables (agregada)</div></div>
+  </div>`;
+  if(aggReached>tempReached){
+    html+='<p style="font-size:0.85rem;color:var(--text-secondary)">La red agregada sobreestima la accesibilidad: hay nodos estructuralmente alcanzables que no se infectan porque la secuencia temporal no lo permite.</p>';
+  }
+  document.getElementById('tempResults').innerHTML=html;
+};
+
+// Auto-run temporal on load
+setTimeout(()=>document.getElementById('tempRunBtn').click(), 300);
+</script>
+</body>
+</html>

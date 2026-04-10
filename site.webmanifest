@@ -1,0 +1,25 @@
+{
+  "name": "Procesos en Redes",
+  "short_name": "Procesos",
+  "description": "Recurso interactivo de CRiSS Lab sobre procesos en redes, difusión, umbral epidémico e intervención.",
+  "lang": "es-CL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAFAF7",
+  "theme_color": "#B04A2F",
+  "icons": [
+    {
+      "src": "./assets/favicon-square.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
