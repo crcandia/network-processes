@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal</title>
-<meta name="description" content="Recurso interactivo de la Clase 6 del curso Redes y Sistemas Complejos sobre procesos en redes: modelos SIS y SIR, umbral epidémico, intervención óptima y redes temporales.">
+<meta name="description" content="Recurso interactivo del curso Redes y Sistemas Complejos sobre procesos en redes: modelos SIS y SIR, umbral epidémico, intervención óptima y redes temporales.">
 <meta name="keywords" content="procesos en redes, network processes, SIS, SIR, umbral epidémico, intervención en redes, redes temporales, epidemias en redes, difusión en redes, redes y sistemas complejos">
 <meta name="author" content="Cristian Candia, Ph.D.">
 <meta name="publisher" content="CRiSS Lab">
@@ -38,7 +38,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CRiSS Lab · Redes y Sistemas Complejos">
 <meta property="og:title" content="Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal">
-<meta property="og:description" content="Clase interactiva sobre procesos en redes con simulaciones de difusión, umbral epidémico, estrategias de intervención y restricciones temporales.">
+<meta property="og:description" content="Recurso interactivo sobre procesos en redes con simulaciones de difusión, umbral epidémico, estrategias de intervención y restricciones temporales.">
 <meta property="og:image" content="./assets/share-social.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -48,7 +48,7 @@
 <meta property="article:publisher" content="https://criss-lab.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal">
-<meta name="twitter:description" content="Clase interactiva sobre procesos en redes con modelos SIS/SIR, umbral epidémico, intervención y redes temporales.">
+<meta name="twitter:description" content="Recurso interactivo sobre procesos en redes con modelos SIS/SIR, umbral epidémico, intervención y redes temporales.">
 <meta name="twitter:image" content="./assets/share-social.jpg">
 <meta name="twitter:image:alt" content="Vista previa del recurso Procesos en Redes de CRiSS Lab">
 <link rel="author" href="https://www.crcandia.com/">
@@ -62,7 +62,7 @@
   "@type": "LearningResource",
   "name": "Procesos en Redes",
   "headline": "Procesos en redes: modelos SIS/SIR, umbrales, intervención y dinámica temporal",
-  "description": "Recurso interactivo de la Clase 6 del curso Redes y Sistemas Complejos sobre procesos en redes, difusión y epidemiología en redes.",
+  "description": "Recurso interactivo del curso Redes y Sistemas Complejos sobre procesos en redes, difusión y epidemiología en redes.",
   "inLanguage": "es-CL",
   "learningResourceType": [
     "Interactive educational article",
@@ -152,6 +152,19 @@ body {
   padding: 48px 24px 40px;
   text-align: center;
 }
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  border: 1px solid rgba(47,107,94,0.22);
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin-bottom: 16px;
+  background: rgba(47,107,94,0.07);
+}
 .hero-top {
   max-width: 900px;
   margin: 0 auto 18px;
@@ -172,8 +185,15 @@ body {
   max-width: 600px;
   margin: 0 auto;
 }
+.hero-lead {
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
 .hero-meta {
-  margin: 14px auto 0;
+  margin: 16px auto 0;
   max-width: 720px;
   font-size: 0.94rem;
   color: var(--text-secondary);
@@ -523,6 +543,7 @@ canvas {
   .hero { padding-top: 24px; }
   .hero-top { justify-content: center; margin-bottom: 14px; }
   .lang-switch { width: 100%; justify-content: center; }
+  .hero-lead { font-size: 0.95rem; }
   .nav-tabs { gap: 1px; }
   .nav-tab { font-size: 0.7rem; padding: 8px 4px; }
   .card { padding: 18px; }
@@ -540,8 +561,12 @@ canvas {
       <a class="lang-btn" href="./index-en.html"><span class="lang-flag">🇺🇸</span><span>English</span></a>
     </div>
   </div>
+  <div class="badge">Curso Redes y Sistemas Complejos</div>
   <h1>Procesos en Redes</h1>
-  <p class="subtitle">De la estructura a la dinámica — Clase 6, Redes y Sistemas Complejos</p>
+  <p class="subtitle">De la estructura a la dinámica — Redes y Sistemas Complejos</p>
+  <p class="hero-lead">
+    Recurso del curso Redes y Sistemas Complejos dedicado a procesos dinámicos sobre redes. Recorre modelos SIS y SIR, umbral epidémico, estrategias de intervención y redes temporales, combinando intuición matemática con simulaciones interactivas.
+  </p>
   <p class="hero-meta">
     Recurso desarrollado por
     <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia</a>
@@ -791,7 +816,7 @@ canvas {
 </div>
 
 <div class="sticky-footer">
-  Redes y Sistemas Complejos · Clase 6 · by
+  Redes y Sistemas Complejos · Procesos en Redes · by
   <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia, Ph.D.</a>
   ·
   <a href="https://criss-lab.com/" target="_blank" rel="noopener external">CRiSS Lab</a>

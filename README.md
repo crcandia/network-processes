@@ -1,6 +1,6 @@
 # Processes on Networks
 
-An interactive educational website on **processes unfolding on networks**, developed for **Class 6** of the course **Networks and Complex Systems** by **Cristian Candia, Ph.D.** and published through **CRiSS Lab**.
+An interactive educational website on **processes unfolding on networks**, developed for the course **Networks and Complex Systems** by **Cristian Candia, Ph.D.** and published through **CRiSS Lab**.
 
 The site connects network structure with dynamics through short theoretical sections and interactive simulations. It focuses on how diffusion, epidemics, intervention strategies, and temporal constraints change the interpretation of node importance and network behavior.
 

@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Processes on networks: SIS/SIR models, thresholds, intervention, and temporal dynamics</title>
-<meta name="description" content="Interactive resource for Class 6 of the Networks and Complex Systems course on processes on networks: SIS and SIR models, epidemic thresholds, intervention, and temporal networks.">
+<meta name="description" content="Interactive resource for the Networks and Complex Systems course on processes on networks: SIS and SIR models, epidemic thresholds, intervention, and temporal networks.">
 <meta name="keywords" content="processes on networks, network processes, SIS, SIR, epidemic threshold, network intervention, temporal networks, epidemics on networks, diffusion on networks, networks and complex systems">
 <meta name="author" content="Cristian Candia, Ph.D.">
 <meta name="publisher" content="CRiSS Lab">
@@ -38,7 +38,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CRiSS Lab · Networks and Complex Systems">
 <meta property="og:title" content="Processes on networks: SIS/SIR models, thresholds, intervention, and temporal dynamics">
-<meta property="og:description" content="Interactive class on processes on networks with diffusion simulations, epidemic thresholds, intervention strategies, and temporal constraints.">
+<meta property="og:description" content="Interactive resource on processes on networks with diffusion simulations, epidemic thresholds, intervention strategies, and temporal constraints.">
 <meta property="og:image" content="./assets/share-social.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -48,7 +48,7 @@
 <meta property="article:publisher" content="https://criss-lab.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Processes on networks: SIS/SIR models, thresholds, intervention, and temporal dynamics">
-<meta name="twitter:description" content="Interactive class on processes on networks with SIS/SIR models, epidemic thresholds, intervention, and temporal networks.">
+<meta name="twitter:description" content="Interactive resource on processes on networks with SIS/SIR models, epidemic thresholds, intervention, and temporal networks.">
 <meta name="twitter:image" content="./assets/share-social.jpg">
 <meta name="twitter:image:alt" content="Preview of the Processes on Networks resource from CRiSS Lab">
 <link rel="author" href="https://www.crcandia.com/">
@@ -62,7 +62,7 @@
   "@type": "LearningResource",
   "name": "Processes on Networks",
   "headline": "Processes on networks: SIS/SIR models, thresholds, intervention, and temporal dynamics",
-  "description": "Interactive resource for Class 6 of the Networks and Complex Systems course on processes on networks, diffusion, and network epidemiology.",
+  "description": "Interactive resource for the Networks and Complex Systems course on processes on networks, diffusion, and network epidemiology.",
   "inLanguage": "en",
   "learningResourceType": [
     "Interactive educational article",
@@ -152,6 +152,19 @@ body {
   padding: 48px 24px 40px;
   text-align: center;
 }
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  border: 1px solid rgba(47,107,94,0.22);
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin-bottom: 16px;
+  background: rgba(47,107,94,0.07);
+}
 .hero-top {
   max-width: 900px;
   margin: 0 auto 18px;
@@ -172,8 +185,15 @@ body {
   max-width: 600px;
   margin: 0 auto;
 }
+.hero-lead {
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
 .hero-meta {
-  margin: 14px auto 0;
+  margin: 16px auto 0;
   max-width: 720px;
   font-size: 0.94rem;
   color: var(--text-secondary);
@@ -523,6 +543,7 @@ canvas {
   .hero { padding-top: 24px; }
   .hero-top { justify-content: center; margin-bottom: 14px; }
   .lang-switch { width: 100%; justify-content: center; }
+  .hero-lead { font-size: 0.95rem; }
   .nav-tabs { gap: 1px; }
   .nav-tab { font-size: 0.7rem; padding: 8px 4px; }
   .card { padding: 18px; }
@@ -540,8 +561,12 @@ canvas {
       <a class="lang-btn active" href="./index-en.html" aria-current="page"><span class="lang-flag">🇺🇸</span><span>English</span></a>
     </div>
   </div>
+  <div class="badge">Networks and Complex Systems Course</div>
   <h1>Processes on Networks</h1>
-  <p class="subtitle">From structure to dynamics — Class 6, Networks and Complex Systems</p>
+  <p class="subtitle">From structure to dynamics — Networks and Complex Systems</p>
+  <p class="hero-lead">
+    Resource for the Networks and Complex Systems course focused on dynamical processes on graphs. It covers SIS and SIR models, epidemic thresholds, intervention strategies, and temporal networks, combining mathematical intuition with interactive simulations.
+  </p>
   <p class="hero-meta">
     Resource created by
     <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia</a>
@@ -791,7 +816,7 @@ canvas {
 </div>
 
 <div class="sticky-footer">
-  Networks and Complex Systems · Class 6 · by
+  Networks and Complex Systems · Processes on Networks · by
   <a href="https://www.crcandia.com/" target="_blank" rel="noopener external author">Cristian Candia, Ph.D.</a>
   ·
   <a href="https://criss-lab.com/" target="_blank" rel="noopener external">CRiSS Lab</a>
