@@ -6,7 +6,7 @@ The site connects network structure with dynamics through short theoretical sect
 
 ## Overview
 
-This project is a single-page static website designed as a teaching resource for graduate-level network science. It introduces the main intuition behind epidemic and diffusion processes on graphs, while keeping the presentation visual, interactive, and accessible.
+This project is a static bilingual website designed as a teaching resource for graduate-level network science. It introduces the main intuition behind epidemic and diffusion processes on graphs, while keeping the presentation visual, interactive, and accessible.
 
 The website is organized into five main sections:
 
@@ -28,6 +28,7 @@ Rather than presenting a single “best” centrality or a universal strategy, t
 
 - Interactive simulations in vanilla JavaScript
 - Explanatory cards combining theory and intuition
+- Spanish and English entry pages
 - Responsive layout for desktop and mobile
 - Static deployment with no build step
 - Social sharing metadata and preview assets
@@ -59,7 +60,9 @@ This site is built as a static web resource using:
 ```text
 procesos_en_redes/
 ├── index.html
+├── index-en.html
 ├── site.webmanifest
+├── site-en.webmanifest
 ├── assets/
 │   ├── apple-touch-icon.png
 │   ├── favicon-16.png

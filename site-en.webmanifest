@@ -1,0 +1,25 @@
+{
+  "name": "Processes on Networks",
+  "short_name": "Processes",
+  "description": "Interactive CRiSS Lab resource on processes on networks, diffusion, epidemic thresholds, and intervention.",
+  "lang": "en",
+  "start_url": "./index-en.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAFAF7",
+  "theme_color": "#B04A2F",
+  "icons": [
+    {
+      "src": "./assets/favicon-square.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
